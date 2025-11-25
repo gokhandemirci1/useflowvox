@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
 import { translations } from '../translations'
+import { trackEvent } from '../hooks/useAnalytics'
 
 const ContactForm = () => {
   const navigate = useNavigate()
@@ -91,6 +92,10 @@ const ContactForm = () => {
       
       // no-cors modunda response okunamaz, bu yüzden direkt başarı kabul ediyoruz
       console.log('Form submitted successfully:', formData)
+      
+      // Google Analytics event tracking
+      trackEvent('form_submit', 'contact', 'contact_form', 1)
+      
       setIsSubmitting(false)
       
       // Formu temizle
