@@ -54,3 +54,5 @@ Build edilmiş dosyalar `dist` klasöründe olacaktır.
 - İletişim bilgilerini `src/components/Footer.jsx` dosyasında güncelleyin
 
 
+
+

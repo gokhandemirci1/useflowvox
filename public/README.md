@@ -11,3 +11,5 @@ Logo şu konumlarda görünecektir:
 - Hero bölümü (ana sayfa)
 - Footer (alt kısım)
 
+
+

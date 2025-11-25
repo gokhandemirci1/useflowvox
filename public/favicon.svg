@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="circleClip">
+      <circle cx="50" cy="50" r="50"/>
+    </clipPath>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="50" fill="#9333ea" opacity="0.2"/>
+  <!-- Logo image with circular clip -->
+  <image xlink:href="/images/logo.jpeg" x="0" y="0" width="100" height="100" clip-path="url(#circleClip)" preserveAspectRatio="xMidYMid slice"/>
+  <!-- Border circle -->
+  <circle cx="50" cy="50" r="50" fill="none" stroke="#9333ea" stroke-width="2"/>
+</svg>
+

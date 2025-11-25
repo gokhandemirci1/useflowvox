@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useLanguage } from '../contexts/LanguageContext'
+import { translations } from '../translations'
 
 const Hero = () => {
+  const { language } = useLanguage()
+  const t = translations[language]
   const starsRef = useRef(null)
   const [logoError, setLogoError] = useState(false)
 
@@ -85,13 +89,13 @@ const Hero = () => {
                 </span>
               )}
               <span className="text-white drop-shadow-[0_0_10px_rgba(147,51,234,0.5)]">
-                Shape the Future
+                {t.hero.title}
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              We take your business to the next level with artificial intelligence technologies.
+              {t.hero.subtitle}
               <br />
-              <span className="text-cyan-400">Innovative solutions</span>, <span className="text-purple-400">smart systems</span>, <span className="text-pink-400">unlimited potential</span>.
+              <span className="text-cyan-400">{t.hero.innovative}</span>, <span className="text-purple-400">{t.hero.smart}</span>, <span className="text-pink-400">{t.hero.unlimited}</span>.
             </p>
           </div>
 
@@ -100,14 +104,14 @@ const Hero = () => {
               onClick={() => scrollToSection('services')}
               className="group relative bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:from-purple-500 hover:to-pink-500 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/50 animate-glow"
             >
-              <span className="relative z-10">Discover What We Do</span>
+              <span className="relative z-10">{t.hero.discoverButton}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg blur opacity-50 group-hover:opacity-75 transition-opacity"></div>
             </button>
             <button
               onClick={() => scrollToSection('about')}
               className="bg-transparent text-white px-8 py-4 rounded-lg text-lg font-semibold border-2 border-purple-500 hover:bg-purple-500/20 transition-all transform hover:scale-105 shadow-lg hover:shadow-purple-500/30"
             >
-              About Us
+              {t.hero.aboutButton}
             </button>
           </div>
         </div>
