@@ -294,7 +294,7 @@ const ContactForm = () => {
               {/* First Name */}
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">
-                  {t.contactForm.firstName} <span className="text-red-400">{t.contactForm.required}</span>
+                  {t.contactForm.firstName}
                 </label>
                 <input
                   type="text"
@@ -316,7 +316,7 @@ const ContactForm = () => {
               {/* Last Name */}
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">
-                  {t.contactForm.lastName} <span className="text-red-400">{t.contactForm.required}</span>
+                  {t.contactForm.lastName}
                 </label>
                 <input
                   type="text"
@@ -339,7 +339,7 @@ const ContactForm = () => {
             {/* Work Email */}
             <div>
               <label htmlFor="workEmail" className="block text-sm font-medium text-gray-300 mb-2">
-                {t.contactForm.workEmail} <span className="text-red-400">{t.contactForm.required}</span>
+                {t.contactForm.workEmail}
               </label>
               <input
                 type="email"
@@ -361,7 +361,7 @@ const ContactForm = () => {
             {/* Job Title */}
             <div>
               <label htmlFor="jobTitle" className="block text-sm font-medium text-gray-300 mb-2">
-                {t.contactForm.jobTitle} <span className="text-red-400">{t.contactForm.required}</span>
+                {t.contactForm.jobTitle}
               </label>
               <input
                 type="text"
@@ -383,7 +383,7 @@ const ContactForm = () => {
             {/* Phone Number */}
             <div>
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-300 mb-2">
-                {t.contactForm.phoneNumber} <span className="text-red-400">{t.contactForm.required}</span>
+                {t.contactForm.phoneNumber}
               </label>
               <div className="flex gap-2 w-full">
                 {/* Modern Country Code Selector */}
@@ -467,7 +467,7 @@ const ContactForm = () => {
             {/* Country */}
             <div>
               <label htmlFor="country" className="block text-sm font-medium text-gray-300 mb-2">
-                {t.contactForm.country} <span className="text-red-400">{t.contactForm.required}</span>
+                {t.contactForm.country}
               </label>
               <div className="relative" ref={countryRef}>
                 <button
