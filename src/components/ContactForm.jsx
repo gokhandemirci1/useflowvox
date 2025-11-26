@@ -115,12 +115,13 @@ const ContactForm = () => {
     })
     
     // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }))
-    }
+    setErrors(prev => {
+      const newErrors = { ...prev }
+      if (newErrors[name]) {
+        delete newErrors[name]
+      }
+      return newErrors
+    })
   }
 
   const validate = () => {
@@ -144,8 +145,20 @@ const ContactForm = () => {
       newErrors.jobTitle = t.contactForm.errors.jobTitleRequired
     }
     
-    if (!formData.phoneNumber.trim()) {
+    // Telefon numarası validasyonu - sadece numara olmalı ve boş olmamalı
+    const phoneNumberTrimmed = formData.phoneNumber.trim()
+    if (!phoneNumberTrimmed) {
       newErrors.phoneNumber = t.contactForm.errors.phoneRequired
+    } else if (!/^[\d\s\-\(\)]+$/.test(phoneNumberTrimmed)) {
+      // Sadece rakam, boşluk, tire ve parantez kabul et
+      newErrors.phoneNumber = language === 'en' 
+        ? 'Please enter a valid phone number (numbers only)' 
+        : 'Lütfen geçerli bir telefon numarası girin (sadece rakamlar)'
+    } else if (phoneNumberTrimmed.replace(/\D/g, '').length < 7) {
+      // En az 7 rakam olmalı (alan kodu hariç)
+      newErrors.phoneNumber = language === 'en'
+        ? 'Phone number must be at least 7 digits'
+        : 'Telefon numarası en az 7 rakam olmalıdır'
     }
     
     if (!formData.country.trim()) {
@@ -428,9 +441,14 @@ const ContactForm = () => {
                                 country: country.name
                               }))
                               setIsCountryCodeOpen(false)
-                              if (errors.phoneNumber) {
-                                setErrors(prev => ({ ...prev, phoneNumber: '' }))
-                              }
+                              // Telefon numarası hatası varsa temizle
+                              setErrors(prev => {
+                                const newErrors = { ...prev }
+                                if (newErrors.phoneNumber) {
+                                  delete newErrors.phoneNumber
+                                }
+                                return newErrors
+                              })
                             }}
                             className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white hover:bg-purple-500/20 transition-all ${
                               formData.phoneCountryCode === country.phoneCode ? 'bg-purple-500/30' : ''
@@ -547,9 +565,14 @@ const ContactForm = () => {
                               // Telefon alan kodu değişmez, kullanıcı isterse ülkeyi değiştirebilir
                             }))
                             setIsCountryOpen(false)
-                            if (errors.country) {
-                              setErrors(prev => ({ ...prev, country: '' }))
-                            }
+                            // Ülke hatası varsa temizle
+                            setErrors(prev => {
+                              const newErrors = { ...prev }
+                              if (newErrors.country) {
+                                delete newErrors.country
+                              }
+                              return newErrors
+                            })
                           }}
                           className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white hover:bg-purple-500/20 transition-all ${
                             formData.country === country.name ? 'bg-purple-500/30' : ''
