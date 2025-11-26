@@ -4,6 +4,51 @@ import { useLanguage } from '../contexts/LanguageContext'
 import { translations } from '../translations'
 import { trackEvent } from '../hooks/useAnalytics'
 
+// Ülke kodları ve telefon alan kodları
+const countries = [
+  { code: 'TR', name: 'Turkey', phoneCode: '+90', flag: '🇹🇷' },
+  { code: 'US', name: 'United States', phoneCode: '+1', flag: '🇺🇸' },
+  { code: 'GB', name: 'United Kingdom', phoneCode: '+44', flag: '🇬🇧' },
+  { code: 'DE', name: 'Germany', phoneCode: '+49', flag: '🇩🇪' },
+  { code: 'FR', name: 'France', phoneCode: '+33', flag: '🇫🇷' },
+  { code: 'IT', name: 'Italy', phoneCode: '+39', flag: '🇮🇹' },
+  { code: 'ES', name: 'Spain', phoneCode: '+34', flag: '🇪🇸' },
+  { code: 'NL', name: 'Netherlands', phoneCode: '+31', flag: '🇳🇱' },
+  { code: 'BE', name: 'Belgium', phoneCode: '+32', flag: '🇧🇪' },
+  { code: 'CH', name: 'Switzerland', phoneCode: '+41', flag: '🇨🇭' },
+  { code: 'AT', name: 'Austria', phoneCode: '+43', flag: '🇦🇹' },
+  { code: 'SE', name: 'Sweden', phoneCode: '+46', flag: '🇸🇪' },
+  { code: 'NO', name: 'Norway', phoneCode: '+47', flag: '🇳🇴' },
+  { code: 'DK', name: 'Denmark', phoneCode: '+45', flag: '🇩🇰' },
+  { code: 'FI', name: 'Finland', phoneCode: '+358', flag: '🇫🇮' },
+  { code: 'PL', name: 'Poland', phoneCode: '+48', flag: '🇵🇱' },
+  { code: 'CZ', name: 'Czech Republic', phoneCode: '+420', flag: '🇨🇿' },
+  { code: 'GR', name: 'Greece', phoneCode: '+30', flag: '🇬🇷' },
+  { code: 'PT', name: 'Portugal', phoneCode: '+351', flag: '🇵🇹' },
+  { code: 'IE', name: 'Ireland', phoneCode: '+353', flag: '🇮🇪' },
+  { code: 'RU', name: 'Russia', phoneCode: '+7', flag: '🇷🇺' },
+  { code: 'CN', name: 'China', phoneCode: '+86', flag: '🇨🇳' },
+  { code: 'JP', name: 'Japan', phoneCode: '+81', flag: '🇯🇵' },
+  { code: 'KR', name: 'South Korea', phoneCode: '+82', flag: '🇰🇷' },
+  { code: 'IN', name: 'India', phoneCode: '+91', flag: '🇮🇳' },
+  { code: 'AU', name: 'Australia', phoneCode: '+61', flag: '🇦🇺' },
+  { code: 'CA', name: 'Canada', phoneCode: '+1', flag: '🇨🇦' },
+  { code: 'MX', name: 'Mexico', phoneCode: '+52', flag: '🇲🇽' },
+  { code: 'BR', name: 'Brazil', phoneCode: '+55', flag: '🇧🇷' },
+  { code: 'AR', name: 'Argentina', phoneCode: '+54', flag: '🇦🇷' },
+  { code: 'ZA', name: 'South Africa', phoneCode: '+27', flag: '🇿🇦' },
+  { code: 'AE', name: 'United Arab Emirates', phoneCode: '+971', flag: '🇦🇪' },
+  { code: 'SA', name: 'Saudi Arabia', phoneCode: '+966', flag: '🇸🇦' },
+  { code: 'IL', name: 'Israel', phoneCode: '+972', flag: '🇮🇱' },
+  { code: 'SG', name: 'Singapore', phoneCode: '+65', flag: '🇸🇬' },
+  { code: 'MY', name: 'Malaysia', phoneCode: '+60', flag: '🇲🇾' },
+  { code: 'TH', name: 'Thailand', phoneCode: '+66', flag: '🇹🇭' },
+  { code: 'ID', name: 'Indonesia', phoneCode: '+62', flag: '🇮🇩' },
+  { code: 'PH', name: 'Philippines', phoneCode: '+63', flag: '🇵🇭' },
+  { code: 'VN', name: 'Vietnam', phoneCode: '+84', flag: '🇻🇳' },
+  { code: 'NZ', name: 'New Zealand', phoneCode: '+64', flag: '🇳🇿' },
+]
+
 const ContactForm = () => {
   const navigate = useNavigate()
   const { language } = useLanguage()
@@ -13,8 +58,9 @@ const ContactForm = () => {
     firstName: '',
     lastName: '',
     jobTitle: '',
+    phoneCountryCode: '+90', // Varsayılan Türkiye
     phoneNumber: '',
-    country: ''
+    country: 'Turkey'
   })
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -31,10 +77,31 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [name]: value
+      }
+      
+      // Telefon alan kodu değiştiğinde ülkeyi otomatik güncelle
+      if (name === 'phoneCountryCode') {
+        const selectedCountry = countries.find(c => c.phoneCode === value)
+        if (selectedCountry) {
+          newData.country = selectedCountry.name
+        }
+      }
+      
+      // Ülke değiştiğinde telefon alan kodunu otomatik güncelle
+      if (name === 'country') {
+        const selectedCountry = countries.find(c => c.name === value)
+        if (selectedCountry) {
+          newData.phoneCountryCode = selectedCountry.phoneCode
+        }
+      }
+      
+      return newData
+    })
+    
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -90,17 +157,25 @@ const ContactForm = () => {
     const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxHhXFwv8Chl7DN5AYNhHeA9-ikrbx7bal4vbNWQS2zvWgosCwvdROeHvM72hqTVogKtw/exec'
     
     try {
-      const response = await fetch(GOOGLE_SHEETS_URL, {
+      // Telefon numarasını alan kodu ile birleştir
+      const fullPhoneNumber = `${formData.phoneCountryCode} ${formData.phoneNumber}`
+      const submitData = {
+        ...formData,
+        phoneNumber: fullPhoneNumber
+      }
+      
+      // Google Sheets'e gönder
+      await fetch(GOOGLE_SHEETS_URL, {
         method: 'POST',
         mode: 'no-cors', // Google Apps Script için no-cors gerekli
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(submitData)
       })
       
       // no-cors modunda response okunamaz, bu yüzden direkt başarı kabul ediyoruz
-      console.log('Form submitted successfully:', formData)
+      console.log('Form submitted successfully:', submitData)
       
       // Google Analytics event tracking
       trackEvent('form_submit', 'contact', 'contact_form', 1)
@@ -113,8 +188,9 @@ const ContactForm = () => {
         firstName: '',
         lastName: '',
         jobTitle: '',
+        phoneCountryCode: '+90',
         phoneNumber: '',
-        country: ''
+        country: 'Turkey'
       })
       
       // Başarı mesajını göster
@@ -295,19 +371,41 @@ const ContactForm = () => {
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-300 mb-2">
                 {t.contactForm.phoneNumber} <span className="text-red-400">{t.contactForm.required}</span>
               </label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                value={formData.phoneNumber}
-                onChange={handleChange}
-                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
-                  errors.phoneNumber
-                    ? 'border-red-500 focus:ring-red-500'
-                    : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
-                }`}
-                placeholder={t.contactForm.phonePlaceholder}
-              />
+              <div className="flex gap-2">
+                {/* Country Code Selector */}
+                <select
+                  id="phoneCountryCode"
+                  name="phoneCountryCode"
+                  value={formData.phoneCountryCode}
+                  onChange={handleChange}
+                  className={`px-3 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
+                    errors.phoneNumber
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
+                  }`}
+                  style={{ minWidth: '120px' }}
+                >
+                  {countries.map((country) => (
+                    <option key={country.code} value={country.phoneCode} className="bg-gray-800">
+                      {country.flag} {country.phoneCode}
+                    </option>
+                  ))}
+                </select>
+                {/* Phone Number Input */}
+                <input
+                  type="tel"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  className={`flex-1 px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                    errors.phoneNumber
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
+                  }`}
+                  placeholder={t.contactForm.phonePlaceholder}
+                />
+              </div>
               {errors.phoneNumber && (
                 <p className="mt-1 text-sm text-red-400">{errors.phoneNumber}</p>
               )}
@@ -318,19 +416,26 @@ const ContactForm = () => {
               <label htmlFor="country" className="block text-sm font-medium text-gray-300 mb-2">
                 {t.contactForm.country} <span className="text-red-400">{t.contactForm.required}</span>
               </label>
-              <input
-                type="text"
+              <select
                 id="country"
                 name="country"
                 value={formData.country}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
                   errors.country
                     ? 'border-red-500 focus:ring-red-500'
                     : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                 }`}
-                placeholder={t.contactForm.countryPlaceholder}
-              />
+              >
+                <option value="" className="bg-gray-800" disabled>
+                  {language === 'en' ? 'Select Country' : 'Ülke Seçin'}
+                </option>
+                {countries.map((country) => (
+                  <option key={country.code} value={country.name} className="bg-gray-800">
+                    {country.flag} {country.name}
+                  </option>
+                ))}
+              </select>
               {errors.country && (
                 <p className="mt-1 text-sm text-red-400">{errors.country}</p>
               )}
