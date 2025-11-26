@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
 import { translations } from '../translations'
@@ -65,6 +65,24 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [isCountryCodeOpen, setIsCountryCodeOpen] = useState(false)
+  const [isCountryOpen, setIsCountryOpen] = useState(false)
+  const countryCodeRef = useRef(null)
+  const countryRef = useRef(null)
+
+  // Dışarı tıklandığında dropdown'ları kapat
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (countryCodeRef.current && !countryCodeRef.current.contains(event.target)) {
+        setIsCountryCodeOpen(false)
+      }
+      if (countryRef.current && !countryRef.current.contains(event.target)) {
+        setIsCountryOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   // Sayfa yüklendiğinde formun başına scroll et (App.jsx'teki ScrollToTop ile birlikte)
   useEffect(() => {
@@ -372,25 +390,65 @@ const ContactForm = () => {
                 {t.contactForm.phoneNumber} <span className="text-red-400">{t.contactForm.required}</span>
               </label>
               <div className="flex gap-2">
-                {/* Country Code Selector */}
-                <select
-                  id="phoneCountryCode"
-                  name="phoneCountryCode"
-                  value={formData.phoneCountryCode}
-                  onChange={handleChange}
-                  className={`px-3 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
-                    errors.phoneNumber
-                      ? 'border-red-500 focus:ring-red-500'
-                      : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
-                  }`}
-                  style={{ minWidth: '120px' }}
-                >
-                  {countries.map((country) => (
-                    <option key={country.code} value={country.phoneCode} className="bg-gray-800">
-                      {country.flag} {country.phoneCode}
-                    </option>
-                  ))}
-                </select>
+                {/* Modern Country Code Selector */}
+                <div className="relative" ref={countryCodeRef}>
+                  <button
+                    type="button"
+                    onClick={() => setIsCountryCodeOpen(!isCountryCodeOpen)}
+                    className={`flex items-center justify-center gap-2 px-3 py-3 bg-gray-800/50 border rounded-lg text-white hover:bg-gray-800/70 transition-all focus:outline-none focus:ring-2 ${
+                      errors.phoneNumber
+                        ? 'border-red-500 focus:ring-red-500'
+                        : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
+                    } ${isCountryCodeOpen ? 'ring-2 ring-purple-500' : ''}`}
+                    style={{ minWidth: '70px' }}
+                    title={formData.phoneCountryCode}
+                  >
+                    <span className="text-3xl">
+                      {countries.find(c => c.phoneCode === formData.phoneCountryCode)?.flag || '🇹🇷'}
+                    </span>
+                    <svg
+                      className={`w-4 h-4 text-gray-400 transition-transform ${isCountryCodeOpen ? 'rotate-180' : ''}`}
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {/* Dropdown Menu */}
+                  {isCountryCodeOpen && (
+                    <div className="absolute z-50 mt-2 w-80 bg-gray-800 border border-purple-500/30 rounded-lg shadow-xl max-h-96 overflow-y-auto">
+                      <div className="p-2">
+                        {countries.map((country) => (
+                          <button
+                            key={country.code}
+                            type="button"
+                            onClick={() => {
+                              setFormData(prev => ({
+                                ...prev,
+                                phoneCountryCode: country.phoneCode,
+                                country: country.name
+                              }))
+                              setIsCountryCodeOpen(false)
+                              if (errors.phoneNumber) {
+                                setErrors(prev => ({ ...prev, phoneNumber: '' }))
+                              }
+                            }}
+                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white hover:bg-purple-500/20 transition-all ${
+                              formData.phoneCountryCode === country.phoneCode ? 'bg-purple-500/30' : ''
+                            }`}
+                          >
+                            <span className="text-2xl">{country.flag}</span>
+                            <span className="flex-1 text-left font-medium">{country.name}</span>
+                            <span className="text-sm text-gray-400">{country.phoneCode}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                
                 {/* Phone Number Input */}
                 <input
                   type="tel"
@@ -416,26 +474,75 @@ const ContactForm = () => {
               <label htmlFor="country" className="block text-sm font-medium text-gray-300 mb-2">
                 {t.contactForm.country} <span className="text-red-400">{t.contactForm.required}</span>
               </label>
-              <select
-                id="country"
-                name="country"
-                value={formData.country}
-                onChange={handleChange}
-                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
-                  errors.country
-                    ? 'border-red-500 focus:ring-red-500'
-                    : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
-                }`}
-              >
-                <option value="" className="bg-gray-800" disabled>
-                  {language === 'en' ? 'Select Country' : 'Ülke Seçin'}
-                </option>
-                {countries.map((country) => (
-                  <option key={country.code} value={country.name} className="bg-gray-800">
-                    {country.flag} {country.name}
-                  </option>
-                ))}
-              </select>
+              <div className="relative" ref={countryRef}>
+                <button
+                  type="button"
+                  onClick={() => setIsCountryOpen(!isCountryOpen)}
+                  className={`w-full flex items-center gap-3 px-4 py-3 bg-gray-800/50 border rounded-lg text-white hover:bg-gray-800/70 transition-all focus:outline-none focus:ring-2 ${
+                    errors.country
+                      ? 'border-red-500 focus:ring-red-500'
+                      : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
+                  } ${isCountryOpen ? 'ring-2 ring-purple-500' : ''}`}
+                >
+                  {formData.country ? (
+                    <>
+                      <span className="text-2xl">
+                        {countries.find(c => c.name === formData.country)?.flag || '🌍'}
+                      </span>
+                      <span className="flex-1 text-left font-medium">
+                        {formData.country}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-2xl">🌍</span>
+                      <span className="flex-1 text-left text-gray-400">
+                        {language === 'en' ? 'Select Country' : 'Ülke Seçin'}
+                      </span>
+                    </>
+                  )}
+                  <svg
+                    className={`w-5 h-5 text-gray-400 transition-transform ${isCountryOpen ? 'rotate-180' : ''}`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+                
+                {/* Dropdown Menu */}
+                {isCountryOpen && (
+                  <div className="absolute z-50 mt-2 w-full bg-gray-800 border border-purple-500/30 rounded-lg shadow-xl max-h-96 overflow-y-auto">
+                    <div className="p-2">
+                      {countries.map((country) => (
+                        <button
+                          key={country.code}
+                          type="button"
+                          onClick={() => {
+                            setFormData(prev => ({
+                              ...prev,
+                              country: country.name,
+                              phoneCountryCode: country.phoneCode
+                            }))
+                            setIsCountryOpen(false)
+                            if (errors.country) {
+                              setErrors(prev => ({ ...prev, country: '' }))
+                            }
+                          }}
+                          className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-white hover:bg-purple-500/20 transition-all ${
+                            formData.country === country.name ? 'bg-purple-500/30' : ''
+                          }`}
+                        >
+                          <span className="text-2xl">{country.flag}</span>
+                          <span className="flex-1 text-left font-medium">{country.name}</span>
+                          <span className="text-sm text-gray-400">{country.phoneCode}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
               {errors.country && (
                 <p className="mt-1 text-sm text-red-400">{errors.country}</p>
               )}
