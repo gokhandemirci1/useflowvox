@@ -8,6 +8,7 @@ import Services from './components/Services'
 import About from './components/About'
 import Footer from './components/Footer'
 import ContactForm from './components/ContactForm'
+import SEO from './components/SEO'
 
 // Route değiştiğinde scroll yap
 function ScrollToTop() {
@@ -38,6 +39,11 @@ function App() {
             path="/"
             element={
               <>
+                <SEO
+                  title="FlowVox AI - Shape the Future with Artificial Intelligence"
+                  description="Transform your business with innovative AI solutions, natural language processing, data analytics, automation systems, and custom software development. Leading AI company in Turkey."
+                  keywords="artificial intelligence, AI solutions, machine learning, NLP, natural language processing, data analytics, automation, custom software development, AI consulting, digital transformation, FlowVox, AI Turkey, Izmir AI"
+                />
                 <Navbar />
                 <Hero />
                 <Services />
@@ -50,6 +56,11 @@ function App() {
             path="/contact"
             element={
               <>
+                <SEO
+                  title="Contact FlowVox AI - Schedule a Meeting with Our Sales Team"
+                  description="Schedule a meeting with FlowVox AI sales team. Get in touch to learn how our AI solutions can transform your business. Contact us today."
+                  keywords="contact FlowVox AI, schedule meeting, AI consultation, FlowVox contact, AI services inquiry"
+                />
                 <Navbar />
                 <ContactForm />
                 <Footer />

@@ -133,3 +133,5 @@ Veya online araçlar:
 3. DNS kayıtlarını ekran görüntüsü ile paylaşın
 
 
+
+

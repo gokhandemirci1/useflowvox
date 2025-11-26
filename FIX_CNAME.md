@@ -159,3 +159,5 @@ Vercel otomatik olarak `useflowvox.com` → `www.useflowvox.com` yönlendirmesi 
 4. **TTL değeri:** Düşük TTL (3600) daha hızlı güncelleme sağlar
 
 
+
+

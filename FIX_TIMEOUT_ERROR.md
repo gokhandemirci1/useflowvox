@@ -161,3 +161,5 @@ ping 76.76.21.21
 4. **A Record IP'si mutlaka Vercel'den alınmalı**
 
 
+
+
