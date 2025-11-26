@@ -399,7 +399,14 @@ const ContactForm = () => {
                     style={{ width: '70px' }}
                     title={formData.phoneCountryCode}
                   >
-                    <span className="text-2xl">
+                    <span 
+                      className="text-2xl inline-block leading-none"
+                      style={{ 
+                        fontFamily: 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif',
+                        fontSize: '24px',
+                        lineHeight: '1'
+                      }}
+                    >
                       {countries.find(c => c.phoneCode === formData.phoneCountryCode)?.flag || '🇹🇷'}
                     </span>
                     <svg
@@ -435,7 +442,16 @@ const ContactForm = () => {
                               formData.phoneCountryCode === country.phoneCode ? 'bg-purple-500/30' : ''
                             }`}
                           >
-                            <span className="text-2xl">{country.flag}</span>
+                            <span 
+                              className="text-2xl inline-block leading-none"
+                              style={{ 
+                                fontFamily: 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif',
+                                fontSize: '24px',
+                                lineHeight: '1'
+                              }}
+                            >
+                              {country.flag}
+                            </span>
                             <span className="flex-1 text-left font-medium">{country.name}</span>
                             <span className="text-sm text-gray-400">{country.phoneCode}</span>
                           </button>
@@ -481,7 +497,14 @@ const ContactForm = () => {
                 >
                   {formData.country ? (
                     <>
-                      <span className="text-2xl">
+                      <span 
+                        className="text-2xl inline-block leading-none"
+                        style={{ 
+                          fontFamily: 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif',
+                          fontSize: '24px',
+                          lineHeight: '1'
+                        }}
+                      >
                         {countries.find(c => c.name === formData.country)?.flag || '🌍'}
                       </span>
                       <span className="flex-1 text-left font-medium">
@@ -490,7 +513,16 @@ const ContactForm = () => {
                     </>
                   ) : (
                     <>
-                      <span className="text-2xl">🌍</span>
+                      <span 
+                        className="text-2xl inline-block leading-none"
+                        style={{ 
+                          fontFamily: 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif',
+                          fontSize: '24px',
+                          lineHeight: '1'
+                        }}
+                      >
+                        🌍
+                      </span>
                       <span className="flex-1 text-left text-gray-400">
                         {language === 'en' ? 'Select Country' : 'Ülke Seçin'}
                       </span>
@@ -529,7 +561,16 @@ const ContactForm = () => {
                             formData.country === country.name ? 'bg-purple-500/30' : ''
                           }`}
                         >
-                          <span className="text-2xl">{country.flag}</span>
+                          <span 
+                            className="text-2xl inline-block leading-none"
+                            style={{ 
+                              fontFamily: 'Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif',
+                              fontSize: '24px',
+                              lineHeight: '1'
+                            }}
+                          >
+                            {country.flag}
+                          </span>
                           <span className="flex-1 text-left font-medium">{country.name}</span>
                           <span className="text-sm text-gray-400">{country.phoneCode}</span>
                         </button>
