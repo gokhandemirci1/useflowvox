@@ -101,7 +101,7 @@ const ContactForm = () => {
         [name]: value
       }
       
-      // Telefon alan kodu değiştiğinde ülkeyi otomatik güncelle
+      // Telefon alan kodu değiştiğinde ülkeyi otomatik güncelle (tek yönlü senkronizasyon)
       if (name === 'phoneCountryCode') {
         const selectedCountry = countries.find(c => c.phoneCode === value)
         if (selectedCountry) {
@@ -109,13 +109,7 @@ const ContactForm = () => {
         }
       }
       
-      // Ülke değiştiğinde telefon alan kodunu otomatik güncelle
-      if (name === 'country') {
-        const selectedCountry = countries.find(c => c.name === value)
-        if (selectedCountry) {
-          newData.phoneCountryCode = selectedCountry.phoneCode
-        }
-      }
+      // Ülke değiştiğinde telefon alan kodunu güncelleme (kullanıcı isterse ülkeyi değiştirebilir)
       
       return newData
     })
@@ -549,8 +543,8 @@ const ContactForm = () => {
                           onClick={() => {
                             setFormData(prev => ({
                               ...prev,
-                              country: country.name,
-                              phoneCountryCode: country.phoneCode
+                              country: country.name
+                              // Telefon alan kodu değişmez, kullanıcı isterse ülkeyi değiştirebilir
                             }))
                             setIsCountryOpen(false)
                             if (errors.country) {
