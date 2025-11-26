@@ -389,25 +389,25 @@ const ContactForm = () => {
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-300 mb-2">
                 {t.contactForm.phoneNumber} <span className="text-red-400">{t.contactForm.required}</span>
               </label>
-              <div className="flex gap-2">
+              <div className="flex gap-2 w-full">
                 {/* Modern Country Code Selector */}
-                <div className="relative" ref={countryCodeRef}>
+                <div className="relative flex-shrink-0" ref={countryCodeRef}>
                   <button
                     type="button"
                     onClick={() => setIsCountryCodeOpen(!isCountryCodeOpen)}
-                    className={`flex items-center justify-center gap-2 px-3 py-3 bg-gray-800/50 border rounded-lg text-white hover:bg-gray-800/70 transition-all focus:outline-none focus:ring-2 ${
+                    className={`flex items-center justify-center gap-1 px-3 py-3 bg-gray-800/50 border rounded-lg text-white hover:bg-gray-800/70 transition-all focus:outline-none focus:ring-2 ${
                       errors.phoneNumber
                         ? 'border-red-500 focus:ring-red-500'
                         : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                     } ${isCountryCodeOpen ? 'ring-2 ring-purple-500' : ''}`}
-                    style={{ minWidth: '70px' }}
+                    style={{ width: '70px' }}
                     title={formData.phoneCountryCode}
                   >
-                    <span className="text-3xl">
+                    <span className="text-2xl">
                       {countries.find(c => c.phoneCode === formData.phoneCountryCode)?.flag || '🇹🇷'}
                     </span>
                     <svg
-                      className={`w-4 h-4 text-gray-400 transition-transform ${isCountryCodeOpen ? 'rotate-180' : ''}`}
+                      className={`w-3 h-3 text-gray-400 transition-transform ${isCountryCodeOpen ? 'rotate-180' : ''}`}
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -456,7 +456,7 @@ const ContactForm = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  className={`flex-1 px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                  className={`flex-1 min-w-0 px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
                     errors.phoneNumber
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
