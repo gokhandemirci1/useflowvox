@@ -82,6 +82,19 @@
   .animate-progress {
     animation: progress 3s linear;
   }
+  
+  @keyframes orbit {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .animate-spin-slow {
+    animation: orbit 20s linear infinite;
+  }
 }
 
 

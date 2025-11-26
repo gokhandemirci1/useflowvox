@@ -63,6 +63,78 @@ const Hero = () => {
                   {/* Subtle glow effect */}
                   <div className="absolute -inset-4 bg-gradient-to-r from-purple-600/20 via-pink-600/20 to-cyan-600/20 rounded-full blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500"></div>
                   
+                  {/* Orbiting particles container */}
+                  <div className="absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none">
+                    {/* Outer orbit - Particles */}
+                    <div className="absolute" style={{ width: '200px', height: '200px', animation: 'orbit 20s linear infinite' }}>
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 shadow-lg shadow-purple-500/80"></div>
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-gradient-to-r from-pink-500 to-purple-500 shadow-lg shadow-pink-500/80"></div>
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 shadow-lg shadow-purple-400/70"></div>
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 shadow-lg shadow-pink-400/70"></div>
+                    </div>
+                    
+                    {/* Middle orbit - Particles (reverse) */}
+                    <div className="absolute" style={{ width: '160px', height: '160px', animation: 'orbit 15s linear infinite reverse' }}>
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 shadow-lg shadow-cyan-500/80"></div>
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 shadow-lg shadow-blue-500/80"></div>
+                    </div>
+                    
+                    {/* Inner orbit - Small particles */}
+                    <div className="absolute" style={{ width: '130px', height: '130px', animation: 'orbit 25s linear infinite' }}>
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-gradient-to-r from-purple-300 to-pink-300 shadow-lg shadow-purple-300/60"></div>
+                      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-gradient-to-r from-pink-300 to-cyan-300 shadow-lg shadow-pink-300/60"></div>
+                    </div>
+                  </div>
+                  
+                  {/* Orbiting trace lines - SVG */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 200 200" style={{ width: '250px', height: '250px', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+                    <defs>
+                      <linearGradient id="orbitGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#9333ea" stopOpacity="0.3" />
+                        <stop offset="50%" stopColor="#ec4899" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="#9333ea" stopOpacity="0.3" />
+                      </linearGradient>
+                      <linearGradient id="orbitGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.3" />
+                        <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.3" />
+                        <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.3" />
+                      </linearGradient>
+                    </defs>
+                    {/* Outer orbit trace */}
+                    <circle
+                      cx="100"
+                      cy="100"
+                      r="95"
+                      fill="none"
+                      stroke="url(#orbitGradient1)"
+                      strokeWidth="1"
+                      strokeDasharray="8 4"
+                      opacity="0.4"
+                    />
+                    {/* Middle orbit trace */}
+                    <circle
+                      cx="100"
+                      cy="100"
+                      r="77"
+                      fill="none"
+                      stroke="url(#orbitGradient2)"
+                      strokeWidth="1"
+                      strokeDasharray="8 4"
+                      opacity="0.4"
+                    />
+                    {/* Inner orbit trace */}
+                    <circle
+                      cx="100"
+                      cy="100"
+                      r="62"
+                      fill="none"
+                      stroke="url(#orbitGradient1)"
+                      strokeWidth="0.5"
+                      strokeDasharray="6 3"
+                      opacity="0.3"
+                    />
+                  </svg>
+                  
                   {/* Logo container with modern 3D effect */}
                   <div className="relative transform transition-all duration-700 ease-out group-hover:scale-105 group-hover:-translate-y-2 animate-float">
                     {/* Glass morphism effect */}
