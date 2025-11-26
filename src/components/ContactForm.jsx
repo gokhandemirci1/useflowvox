@@ -302,12 +302,11 @@ const ContactForm = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
                     errors.firstName
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                   }`}
-                  placeholder={t.contactForm.firstNamePlaceholder}
                 />
                 {errors.firstName && (
                   <p className="mt-1 text-sm text-red-400">{errors.firstName}</p>
@@ -325,12 +324,11 @@ const ContactForm = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
                     errors.lastName
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                   }`}
-                  placeholder={t.contactForm.lastNamePlaceholder}
                 />
                 {errors.lastName && (
                   <p className="mt-1 text-sm text-red-400">{errors.lastName}</p>
@@ -349,12 +347,11 @@ const ContactForm = () => {
                 name="workEmail"
                 value={formData.workEmail}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
                   errors.workEmail
                     ? 'border-red-500 focus:ring-red-500'
                     : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                 }`}
-                placeholder={t.contactForm.emailPlaceholder}
               />
               {errors.workEmail && (
                 <p className="mt-1 text-sm text-red-400">{errors.workEmail}</p>
@@ -372,12 +369,11 @@ const ContactForm = () => {
                 name="jobTitle"
                 value={formData.jobTitle}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                className={`w-full px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
                   errors.jobTitle
                     ? 'border-red-500 focus:ring-red-500'
                     : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                 }`}
-                placeholder={t.contactForm.jobTitlePlaceholder}
               />
               {errors.jobTitle && (
                 <p className="mt-1 text-sm text-red-400">{errors.jobTitle}</p>
@@ -456,12 +452,11 @@ const ContactForm = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  className={`flex-1 min-w-0 px-4 py-3 bg-gray-800/50 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition-all ${
+                  className={`flex-1 min-w-0 px-4 py-3 bg-gray-800/50 border rounded-lg text-white focus:outline-none focus:ring-2 transition-all ${
                     errors.phoneNumber
                       ? 'border-red-500 focus:ring-red-500'
                       : 'border-purple-500/30 focus:ring-purple-500 focus:border-purple-500'
                   }`}
-                  placeholder={t.contactForm.phonePlaceholder}
                 />
               </div>
               {errors.phoneNumber && (
