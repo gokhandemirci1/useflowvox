@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
 import { initGA, usePageTracking } from './hooks/useAnalytics'
 import Navbar from './components/Navbar'
@@ -8,6 +8,17 @@ import Services from './components/Services'
 import About from './components/About'
 import Footer from './components/Footer'
 import ContactForm from './components/ContactForm'
+
+// Route değiştiğinde scroll yap
+function ScrollToTop() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }, [pathname])
+
+  return null
+}
 
 function App() {
   // Google Analytics'i başlat
@@ -20,6 +31,7 @@ function App() {
 
   return (
     <LanguageProvider>
+      <ScrollToTop />
       <div className="min-h-screen">
         <Routes>
           <Route

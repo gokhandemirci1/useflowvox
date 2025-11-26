@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useLanguage } from '../contexts/LanguageContext'
 import { translations } from '../translations'
@@ -19,6 +19,15 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+
+  // Sayfa yüklendiğinde formun başına scroll et (App.jsx'teki ScrollToTop ile birlikte)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }, 10)
+    
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
