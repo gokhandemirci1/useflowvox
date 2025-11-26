@@ -182,3 +182,4 @@ www.useflowvox.com canonical name = [Vercel CNAME değeri]
    - DNS kayıtları
    - Browser console hataları
 
+

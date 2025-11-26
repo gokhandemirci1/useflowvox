@@ -60,24 +60,17 @@ const Hero = () => {
             {!logoError && (
               <div className="flex justify-center mb-8">
                 <div className="relative group">
-                  {/* Animated glow rings */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/40 via-pink-500/40 to-cyan-500/40 rounded-full blur-2xl animate-pulse group-hover:blur-3xl transition-all duration-500"></div>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 via-pink-600/30 to-cyan-600/30 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                  
-                  {/* Logo with modern effects */}
+                  {/* Logo - arka plan olmadan sadece şekil */}
                   <div className="relative">
                     <img 
                       src="/images/logo.jpeg" 
                       alt="FlowVox AI Logo" 
-                      className="h-32 md:h-40 lg:h-48 w-auto relative z-10 drop-shadow-[0_0_30px_rgba(147,51,234,0.8)] brightness-110 contrast-110 transition-all duration-500 group-hover:scale-105 group-hover:drop-shadow-[0_0_40px_rgba(147,51,234,1)]"
+                      className="h-32 md:h-40 lg:h-48 w-auto relative z-10 brightness-110 contrast-110 transition-all duration-500 group-hover:scale-105"
                       style={{
-                        filter: 'drop-shadow(0 0 20px rgba(147, 51, 234, 0.6)) drop-shadow(0 0 40px rgba(236, 72, 153, 0.4)) drop-shadow(0 0 60px rgba(6, 182, 212, 0.3))',
+                        mixBlendMode: 'normal',
                       }}
                       onError={() => setLogoError(true)}
                     />
-                    
-                    {/* Shimmer effect */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 animate-shimmer"></div>
                   </div>
                 </div>
               </div>

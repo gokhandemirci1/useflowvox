@@ -157,3 +157,4 @@ Eğer lokal build çalışmıyorsa → Kod sorunu
 2. **Build Loglarını Paylaşın:** Hata mesajlarını screenshot ile
 3. **Browser Console Loglarını Paylaşın:** F12 → Console → Screenshot
 
+

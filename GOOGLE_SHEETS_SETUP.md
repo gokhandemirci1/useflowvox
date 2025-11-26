@@ -106,3 +106,4 @@ ContactForm.jsx dosyasındaki `handleSubmit` fonksiyonu güncellenecek ve Google
 2. Google Sheets'te yeni bir satırın eklendiğini kontrol edin
 3. Hata olursa browser console'u kontrol edin
 
+

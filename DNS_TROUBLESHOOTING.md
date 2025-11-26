@@ -132,3 +132,4 @@ Veya online araçlar:
 2. Domain sağlayıcınızın support'u ile iletişime geçin
 3. DNS kayıtlarını ekran görüntüsü ile paylaşın
 
+

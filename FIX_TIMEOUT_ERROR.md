@@ -160,3 +160,4 @@ ping 76.76.21.21
 3. **Vercel URL çalışmıyorsa** → Build/Deployment sorunu
 4. **A Record IP'si mutlaka Vercel'den alınmalı**
 
+

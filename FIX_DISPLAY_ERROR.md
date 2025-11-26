@@ -105,3 +105,4 @@ Lütfen şunları bildirin:
 
 Bu bilgilerle daha spesifik çözüm sunabilirim.
 
+

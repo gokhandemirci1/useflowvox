@@ -158,3 +158,4 @@ Vercel otomatik olarak `useflowvox.com` → `www.useflowvox.com` yönlendirmesi 
 3. **DNS yayılması zaman alır:** 1-24 saat sürebilir
 4. **TTL değeri:** Düşük TTL (3600) daha hızlı güncelleme sağlar
 
+
